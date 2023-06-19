@@ -1,0 +1,48 @@
+﻿@model UploadViewModel
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<div class="d-flex flex-column">
+    <h2 class="mt-5">Upload archives</h2>
+    <form class="d-flex align-items-center mt-3" asp-action="Index" method="post" enctype="multipart/form-data">
+        <input class="form-control w-25 me-3" asp-for="Files" multiple>
+        <button onclick="handleClick()" id="btn-submit" class="form-control btn btn-primary w-25" type="submit">
+            Upload selected files
+        </button>
+    </form>
+    @if (!Model.InitialView)
+    {
+        if (Model.Files.Any())
+        {
+            if (!Model.Errors.Any())
+            {
+                <span class="text-success">Upload successful</span>
+            }
+            else
+            {
+                foreach (var error in Model.Errors)
+                {
+                    <span class="text-warning">@Html.Raw(error)</span>
+                }
+            }
+            <span class="text-success">@Model.AddedInfo</span>
+        }
+        else
+        {
+            <span class="text-danger">Upload at least 1 file</span>
+        }
+    }
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+    function handleClick() {
+        $("#btn-submit")
+            .prop("disabled", true)
+            .html("<span class='spinner-grow spinner-grow-sm' role='status' aria-hidden='true'></span> Uploading...");
+        $("form").submit();
+    }
+    </script>
+}

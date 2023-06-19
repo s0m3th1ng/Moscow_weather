@@ -1,0 +1,20 @@
+﻿@using System.Globalization
+@model IEnumerable<WeatherData>
+
+@foreach (var row in Model)
+{
+    <tr>
+        <td>@row.Date.ToString("dd MMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</td>
+        <td>@row.Date.ToString("HH:mm", CultureInfo.CreateSpecificCulture("en-US"))</td>
+        <td>@(row.Temperature != null ? $"{row.Temperature}°C" : null)</td>
+        <td>@(row.Humidity != null ? $"{row.Humidity}%" : null)</td>
+        <td>@(row.DewPoint != null ? $"{row.DewPoint}°C" : null)</td>
+        <td>@(row.AtmosphericPressure != null ? $"{row.AtmosphericPressure}mm Hg" : null)</td>
+        <td>@row.WindDirection</td>
+        <td>@(row.WindSpeed != null ? $"{row.WindSpeed}m/s" : null)</td>
+        <td>@(row.Cloudiness != null ? $"{row.Cloudiness}%" : null)</td>
+        <td>@(row.CloudinessLowerEdge != null ? $"{row.CloudinessLowerEdge}m" : null)</td>
+        <td>@(row.Visibility != null ? $"{row.Visibility}km" : null)</td>
+        <td>@row.Weather</td>
+    </tr>
+}
